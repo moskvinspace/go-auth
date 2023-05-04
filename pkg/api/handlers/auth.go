@@ -16,11 +16,16 @@ type signUpRequest struct {
 	Password2 string `json:"password_2"`
 }
 
+type signInRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 func SignUp(c *gin.Context) {
 	var req signUpRequest
 
 	if err := c.BindJSON(&req); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -70,4 +75,31 @@ func SignUp(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, user)
+}
+
+func SignIn(c *gin.Context) {
+	var req signInRequest
+
+	if err := c.BindJSON(req); err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if !models.IsEmailExist(strings.ToLower(req.Email)) {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Email doesn't exist! "})
+		return
+	}
+
+	user, err := models.GetUser(strings.ToLower(req.Email))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	if !checkPasswordHash(req.Password, user.Password) {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Password is wrong! "})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": ""})
 }

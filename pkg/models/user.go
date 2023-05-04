@@ -33,3 +33,16 @@ func IsEmailExist(email string) bool {
 
 	return count > 0
 }
+
+func GetUser(email string) (*User, error) {
+	var user User
+
+	if err := database.DB.
+		Where("email = ?", email).
+		First(&user).
+		Error; err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
