@@ -11,7 +11,7 @@ import (
 
 var DB *gorm.DB
 
-func ConnectDb() {
+func ConnectDB() {
 	dsn := fmt.Sprintf(
 		"host=database user=%s password=%s dbname=%s port=5432 sslmode=disable",
 		os.Getenv("POSTGRES_USER"),

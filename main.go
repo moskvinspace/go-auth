@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	database.ConnectDb()
+	database.ConnectDB()
 	migrate.MigrationDB()
 }
 
