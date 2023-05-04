@@ -80,7 +80,7 @@ func SignUp(c *gin.Context) {
 func SignIn(c *gin.Context) {
 	var req signInRequest
 
-	if err := c.BindJSON(req); err != nil {
+	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
