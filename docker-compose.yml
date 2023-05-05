@@ -16,6 +16,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
+      - HOST=database
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
