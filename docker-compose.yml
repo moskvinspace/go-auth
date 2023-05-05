@@ -28,3 +28,8 @@ services:
       - "8080:8080"
 volumes:
   data:
+  database:
+  server:
+networks:
+  internal:
+    driver: bridge
