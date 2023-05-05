@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build and push the image
-        run:
+        run: |
           docker login --username moskvinspace --password ${{ secrets.GH_PAT }} ghcr.io
           docker compose build
           docker image tag simple-web-app-server:latest ghcr.io/moskvinspace/simple-web-app-ghcr:latest
