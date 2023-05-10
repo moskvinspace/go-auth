@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/moskvinspace/simple-web-app/pkg/database"
 	"gorm.io/gorm"
 )
@@ -34,11 +35,11 @@ func IsEmailExist(email string) bool {
 	return count > 0
 }
 
-func GetUser(email string) (*User, error) {
+func GetUser(field, value string) (*User, error) {
 	var user User
 
 	if err := database.DB.
-		Where("email = ?", email).
+		Where(fmt.Sprintf("%s = ?", field), value).
 		First(&user).
 		Error; err != nil {
 		return nil, err
