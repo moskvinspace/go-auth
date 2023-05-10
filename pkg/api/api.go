@@ -10,8 +10,8 @@ import (
 func Start() {
 	r := gin.Default()
 
-	r.POST("/sign-up", handlers.SignUp)
-	r.POST("/sign-in", handlers.SignIn)
+	r.POST("/api/sign-up", handlers.SignUp)
+	r.POST("/api/sign-in", handlers.SignIn)
 
 	if err := r.Run(); err != nil {
 		log.Fatal("Failed to run server. \n", err)
