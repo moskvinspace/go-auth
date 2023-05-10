@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/moskvinspace/simple-web-app/pkg/api/handlers"
 	"log"
@@ -9,9 +10,16 @@ import (
 
 func Start() {
 	r := gin.Default()
+	r.Use(cors.New(cors.Config{
+		AllowCredentials: true,
+		AllowAllOrigins:  true,
+		ExposeHeaders:    []string{"Content-Length", "Content-Type", "Access-Control-Allow-Origin"},
+	}))
 
-	r.POST("/api/sign-up", handlers.SignUp)
-	r.POST("/api/sign-in", handlers.SignIn)
+	r.POST("/api/register", handlers.Register)
+	r.POST("/api/login", handlers.Login)
+	r.GET("/api/logout", handlers.Logout)
+	r.GET("/api/current_user", handlers.CurrentUser)
 
 	if err := r.Run(); err != nil {
 		log.Fatal("Failed to run server. \n", err)
