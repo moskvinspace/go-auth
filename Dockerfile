@@ -1,9 +1,14 @@
-FROM golang:1.20
+FROM golang:1.19-alpine3.16 AS builder
 
-WORKDIR /app
+WORKDIR /usr/local/go/src/
 
-COPY . .
+ADD . /usr/local/go/src/
 
-RUN go get && go build -o bin .
+RUN go clean --modcache
+RUN go build -mod=readonly -o app main.go
 
-CMD ["/app/bin"]
+FROM alpine:3.16
+
+COPY --from=builder /usr/local/go/src/app /
+
+CMD ["/app"]

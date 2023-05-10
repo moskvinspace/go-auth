@@ -1,29 +1,39 @@
-version: "3.7"
+version: "3.8"
+
 services:
-  database:
-    image: postgres
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+  db:
+    image: postgres:15-alpine3.17
+    container_name: "database"
     ports:
       - "5432:5432"
-    volumes:
-      - data:/var/lib/postgresql/data
-  server:
-    build:
-      context: .
-      dockerfile: Dockerfile
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
-    depends_on:
-      - database
+    volumes:
+      - data:/var/lib/postgresql/data
     networks:
-      - default
+      - fullstack
+    restart: always
+  server:
+    build: .
+    container_name: "backend"
     ports:
       - "8080:8080"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    networks:
+      - fullstack
+    depends_on:
+      - db
+
 volumes:
   data:
+
+networks:
+  fullstack:
+    driver: bridge
+
+
