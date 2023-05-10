@@ -1,14 +1,17 @@
 package handlers
 
 import (
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/moskvinspace/simple-web-app/pkg/models"
 	"net/http"
 	"regexp"
+	"strconv"
 	"strings"
+	"time"
 )
 
-type signUpRequest struct {
+type registerRequest struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
@@ -16,13 +19,13 @@ type signUpRequest struct {
 	Password2 string `json:"password_2"`
 }
 
-type signInRequest struct {
+type loginRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
-func SignUp(c *gin.Context) {
-	var req signUpRequest
+func Register(c *gin.Context) {
+	var req registerRequest
 
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -77,8 +80,8 @@ func SignUp(c *gin.Context) {
 	c.JSON(http.StatusCreated, user)
 }
 
-func SignIn(c *gin.Context) {
-	var req signInRequest
+func Login(c *gin.Context) {
+	var req loginRequest
 
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
@@ -90,7 +93,7 @@ func SignIn(c *gin.Context) {
 		return
 	}
 
-	user, err := models.GetUser(strings.ToLower(req.Email))
+	user, err := models.GetUser("email", strings.ToLower(req.Email))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -101,5 +104,40 @@ func SignIn(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": ""})
+	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
+		Issuer:    strconv.Itoa(int(user.ID)),
+		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), //1 day
+	})
+
+	token, err := claims.SignedString([]byte(SecretKey))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.SetCookie(
+		"jwt",
+		token,
+		time.Now().Add(time.Hour*24).Minute(),
+		"",
+		"localhost",
+		false,
+		true,
+	)
+
+	c.JSON(http.StatusOK, gin.H{})
+}
+
+func Logout(c *gin.Context) {
+	c.SetCookie(
+		"jwt",
+		"",
+		time.Now().Add(-time.Hour).Minute(),
+		"",
+		"localhost",
+		false,
+		true,
+	)
+
+	c.JSON(http.StatusOK, gin.H{})
 }
