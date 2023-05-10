@@ -14,7 +14,7 @@ jobs:
           docker compose build
           docker image tag simple-web-app-server:latest ghcr.io/moskvinspace/simple-web-app-ghcr:latest
           docker push ghcr.io/moskvinspace/simple-web-app-ghcr:latest
-        env:
+        environment:
           - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=postgres
           - POSTGRES_DB=postgres
