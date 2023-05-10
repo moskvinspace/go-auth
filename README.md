@@ -1,13 +1,34 @@
 # simple-web-app
 
-## Docker run
+## Run app
 
 ```sh
-docker run ghcr.io/moskvinspace/simple-web-app-ghcr:latest
+docker compose up -d
 ```
 
-## Web-app default path
+### [API] POST Sign-up
 
+```sh
+http://localhost:8080/api/sign-up
 ```
-http://localhost:8080
+```json
+{
+	"first_name": "John",
+	"last_name": "Doe",
+	"email": "john@example.com",
+	"password_1": "Qwerty!23",
+	"password_2": "Qwerty!23"
+}
+```
+
+### [API] POST Sign-in
+
+```sh
+http://localhost:8080/api/sign-in
+```
+```json
+{
+	"email": "john@example.com",
+	"password": "Qwerty!23"
+}
 ```
