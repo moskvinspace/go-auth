@@ -1,4 +1,5 @@
-# simple-web-app
+# moskvinspace/go-auth
+Golang Authentication API with gin, postgres and JWT
 
 ## Run app
 
