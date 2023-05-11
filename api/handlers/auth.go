@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/moskvinspace/go-auth/pkg/models"
+	"github.com/moskvinspace/go-auth/models"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -24,6 +24,16 @@ type loginRequest struct {
 	Password string `json:"password"`
 }
 
+// Register godoc
+// @Tags         Register
+// @Description  Register new user
+// @Accept       json
+// @Produce      json
+// @Param        register body registerRequest true "-"
+// @Success      201  {object}  models.User
+// @Failure      400  {string} error
+// @Failure      500  {string} error
+// @Router       /register [post]
 func Register(c *gin.Context) {
 	var req registerRequest
 
@@ -80,6 +90,16 @@ func Register(c *gin.Context) {
 	c.JSON(http.StatusCreated, user)
 }
 
+// Login godoc
+// @Tags         Login
+// @Description  Set cookie "jwt"
+// @Accept       json
+// @Produce      json
+// @Param        login body loginRequest true "-"
+// @Success      200  {string} ok
+// @Failure      401  {string} error
+// @Failure      500  {string} error
+// @Router       /login [post]
 func Login(c *gin.Context) {
 	var req loginRequest
 
@@ -128,6 +148,13 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
+// Logout godoc
+// @Tags         Logout
+// @Description  Remove cookie "jwt"
+// @Accept       json
+// @Produce      json
+// @Success      200  {string}  ok
+// @Router       /logout [get]
 func Logout(c *gin.Context) {
 	c.SetCookie(
 		"jwt",
