@@ -118,7 +118,7 @@ func Login(c *gin.Context) {
 	c.SetCookie(
 		"jwt",
 		token,
-		time.Now().Add(time.Hour*24).Minute(),
+		time.Now().Add(time.Hour*24).Second(),
 		"",
 		"localhost",
 		false,
@@ -132,7 +132,7 @@ func Logout(c *gin.Context) {
 	c.SetCookie(
 		"jwt",
 		"",
-		time.Now().Add(-time.Hour).Minute(),
+		time.Now().Add(-time.Hour).Second(),
 		"",
 		"localhost",
 		false,
