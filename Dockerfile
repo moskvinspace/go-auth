@@ -10,5 +10,6 @@ RUN go build -mod=readonly -o app main.go
 FROM alpine:3.16
 
 COPY --from=builder /usr/local/go/src/app /
+COPY --from=builder /usr/local/go/src/wait-for-postgres.sh /
 
 CMD ["/app"]
