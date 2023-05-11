@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/moskvinspace/simple-web-app/pkg/models"
+	"github.com/moskvinspace/go-auth/pkg/models"
 	"net/http"
 	"regexp"
 	"strconv"

@@ -1,4 +1,4 @@
-module github.com/moskvinspace/simple-web-app
+module github.com/moskvinspace/go-auth
 
 go 1.20
 

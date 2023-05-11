@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/moskvinspace/simple-web-app/pkg/api/handlers"
+	"github.com/moskvinspace/go-auth/pkg/api/handlers"
 	"log"
 	"os"
 )

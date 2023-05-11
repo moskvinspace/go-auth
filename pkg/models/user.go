@@ -2,7 +2,7 @@ package models
 
 import (
 	"fmt"
-	"github.com/moskvinspace/simple-web-app/pkg/database"
+	"github.com/moskvinspace/go-auth/pkg/database"
 	"gorm.io/gorm"
 )
 

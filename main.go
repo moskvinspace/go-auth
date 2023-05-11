@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/moskvinspace/simple-web-app/pkg/api"
-	"github.com/moskvinspace/simple-web-app/pkg/database"
-	"github.com/moskvinspace/simple-web-app/pkg/database/migrate"
+	"github.com/moskvinspace/go-auth/pkg/api"
+	"github.com/moskvinspace/go-auth/pkg/database"
+	"github.com/moskvinspace/go-auth/pkg/database/migrate"
 )
 
 func init() {

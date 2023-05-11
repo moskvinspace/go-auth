@@ -1,8 +1,8 @@
 package migrate
 
 import (
-	"github.com/moskvinspace/simple-web-app/pkg/database"
-	"github.com/moskvinspace/simple-web-app/pkg/models"
+	"github.com/moskvinspace/go-auth/pkg/database"
+	"github.com/moskvinspace/go-auth/pkg/models"
 	"log"
 	"os"
 )
