@@ -6,10 +6,10 @@
 docker compose up -d
 ```
 
-### [API] POST Sign-up
+### [API] POST Register
 
 ```sh
-http://localhost:8080/api/sign-up
+http://localhost:8080/api/register
 ```
 ```json
 {
@@ -21,14 +21,25 @@ http://localhost:8080/api/sign-up
 }
 ```
 
-### [API] POST Sign-in
+### [API] POST Login
 
 ```sh
-http://localhost:8080/api/sign-in
+http://localhost:8080/api/login
 ```
 ```json
 {
 	"email": "john@example.com",
 	"password": "Qwerty!23"
 }
+```
+### [API] GET Logout
+
+```sh
+http://localhost:8080/api/logout
+```
+
+### [API] GET CurrentUser
+
+```sh
+http://localhost:8080/api/current_user
 ```
