@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/moskvinspace/go-auth/pkg/models"
+	"github.com/moskvinspace/go-auth/models"
 	"net/http"
 )
 
@@ -14,6 +14,13 @@ type currentUserResponse struct {
 	Email     string `json:"email"`
 }
 
+// CurrentUser godoc
+// @Tags         CurrentUser
+// @Description  Response current user
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  currentUserResponse
+// @Router       /current_user [get]
 func CurrentUser(c *gin.Context) {
 	cookie, err := c.Cookie("jwt")
 	if err != nil {

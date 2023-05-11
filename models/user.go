@@ -2,16 +2,20 @@ package models
 
 import (
 	"fmt"
-	"github.com/moskvinspace/go-auth/pkg/database"
+	"github.com/moskvinspace/go-auth/database"
 	"gorm.io/gorm"
+	"time"
 )
 
 type User struct {
-	gorm.Model
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	Password  string `json:"-"`
+	ID        uint           `json:"id" gorm:"primarykey"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index" swaggertype:"string"`
+	FirstName string         `json:"first_name"`
+	LastName  string         `json:"last_name"`
+	Email     string         `json:"email"`
+	Password  string         `json:"-"`
 }
 
 func (u *User) Create() error {
