@@ -8,6 +8,7 @@ import (
 )
 
 type currentUserResponse struct {
+	ID        uint   `json:"id"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
@@ -35,6 +36,7 @@ func CurrentUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, currentUserResponse{
+		ID:        user.ID,
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
 		Email:     user.Email,
